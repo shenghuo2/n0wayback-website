@@ -1,0 +1,123 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import { honors } from '../data/honors';
+import logo from '../assets/logo.svg';
+
+// Sort by date
+const sortedHonors = [...honors].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+---
+
+<MainLayout title="Hall of Fame">
+  <section class="py-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-16">
+        <span class="text-secondary font-mono mb-2 block">Our Achievements</span>
+        <h1 class="text-4xl font-bold text-light mb-4">Hall of Fame</h1>
+        <p class="text-light/70 max-w-2xl mx-auto">
+          This page showcases the honors and achievements of the N0wayBack team in various CTF competitions, witnessing our efforts and growth along the way.
+        </p>
+      </div>
+      
+      <div class="space-y-12">
+        {sortedHonors.map((honor, index) => (
+          <div class={`flex flex-col lg:flex-row gap-8 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
+            <div class="lg:w-1/3">
+              <div class="relative overflow-hidden rounded-lg border border-secondary/30 h-64 group">
+                <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent z-10"></div>
+                {honor.image ? (
+                  <img 
+                    src={honor.image} 
+                    alt={`${honor.name} honor image`} 
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                ) : (
+                  <div class="w-full h-full bg-secondary/10 flex items-center justify-center">
+                    <img 
+                      src={logo.src} 
+                      alt="N0wayBack logo" 
+                      class="h-16"
+                    />
+                  </div>
+                )}
+                <div class="absolute bottom-4 left-4 z-20 bg-dark/80 backdrop-blur-sm px-3 py-1 rounded-md border border-secondary/30">
+                  <span class="text-secondary font-mono text-sm">{honor.rank}</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="lg:w-2/3">
+              <div class="space-y-4">
+                <div class="flex items-start justify-between">
+                  <h2 class="text-2xl md:text-3xl font-bold text-light">{honor.name}</h2>
+                  <span class="text-light/50 font-mono text-sm">{new Date(honor.date).toLocaleDateString('en-US')}</span>
+                </div>
+                <p class="text-light/70">{honor.description}</p>
+                {honor.link && (
+                  <a 
+                    href={honor.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="inline-flex items-center text-secondary hover:text-secondary/80 transition-colors group mt-2"
+                  >
+                    Learn More
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Future Goals Section -->
+  <section class="py-16 bg-dark">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <span class="text-secondary font-mono mb-2 block">Looking Forward</span>
+        <h2 class="text-3xl font-bold text-light">Our Goals</h2>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-primary p-6 rounded-lg border border-secondary/20 hover:border-secondary transition-all duration-300">
+          <div class="w-12 h-12 flex items-center justify-center bg-secondary/10 rounded-md text-secondary mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-light mb-3">International Top Competitions</h3>
+          <p class="text-light/70">
+            Our goal is to achieve better results in international top competitions such as DEF CON CTF and HITCON CTF, showcasing the capabilities of Chinese competitors.
+          </p>
+        </div>
+        
+        <div class="bg-primary p-6 rounded-lg border border-secondary/20 hover:border-secondary transition-all duration-300">
+          <div class="w-12 h-12 flex items-center justify-center bg-secondary/10 rounded-md text-secondary mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-light mb-3">Knowledge Sharing</h3>
+          <p class="text-light/70">
+            Continuously summarize and share the experience and techniques we've accumulated in competitions, contributing to the security community.
+          </p>
+        </div>
+        
+        <div class="bg-primary p-6 rounded-lg border border-secondary/20 hover:border-secondary transition-all duration-300">
+          <div class="w-12 h-12 flex items-center justify-center bg-secondary/10 rounded-md text-secondary mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-light mb-3">Nurturing Talent</h3>
+          <p class="text-light/70">
+            Discover and cultivate more newcomers interested in cybersecurity, expanding the team of Chinese CTF players.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</MainLayout>

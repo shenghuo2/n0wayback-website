@@ -1,0 +1,94 @@
+---
+const navItems = [
+  { label: "Intro", href: "/" },
+  { label: "Members", href: "/members" },
+  { label: "Hall of Fame", href: "/honors" },
+];
+import logo from '../assets/logo.svg';
+---
+
+<header class="sticky top-0 z-50 bg-primary/90 backdrop-blur-sm border-b border-secondary/20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="flex justify-between items-center h-16">
+      <div class="flex items-center">
+        <a href="/" class="flex items-center">
+          <img src={logo.src} alt="N0wayBack Logo" class="h-8 mr-2" />
+          <div class="logo-text font-mono text-xl font-bold">N0wayBack</div>
+        </a>
+      </div>
+      
+      <nav class="hidden md:flex">
+        <ul class="flex space-x-8">
+          {
+            navItems.map((item, index) => (
+              <li>
+                <a 
+                  href={item.href} 
+                  class="relative text-light hover:text-secondary transition-colors font-medium flex items-center group"
+                >
+                  <span class="text-secondary font-mono mr-1">0{index + 1}.</span>
+                  {item.label}
+                  <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-secondary transition-all duration-300 group-hover:w-full"></span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      
+      <!-- Mobile menu button -->
+      <div class="md:hidden">
+        <button id="menu-toggle" type="button" class="text-secondary">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden md:hidden">
+    <div class="px-2 pt-2 pb-3 space-y-1 border-t border-secondary/20">
+      {
+        navItems.map((item, index) => (
+          <a 
+            href={item.href} 
+            class="block px-3 py-2 text-base font-medium text-light hover:text-secondary hover:bg-dark/50 rounded-md transition-colors"
+          >
+            <span class="text-secondary font-mono">0{index + 1}.</span> {item.label}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</header>
+
+<style>
+  .logo-text {
+    background: linear-gradient(90deg, 
+      #3BFFFF 0%, 
+      #3BFFFF 35%, 
+      #8CDCCD 42%,
+      #D8B99E 48%,
+      #FF7A54 55%,
+      #FF3700 65%, 
+      #FF3700 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+</style>
+
+<script>
+  // Mobile menu toggle
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  }
+</script>

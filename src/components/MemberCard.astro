@@ -1,0 +1,48 @@
+---
+interface Props {
+  name: string;
+  avatar: string; 
+  link?: string;
+  bio?: string;
+  skills?: string[];
+}
+
+const { name, avatar, link, bio, skills = [] } = Astro.props;
+---
+
+<div class="bg-dark rounded-lg overflow-hidden border border-secondary/20 hover:border-secondary transition-all duration-300 transform hover:-translate-y-1 group">
+  <div class="p-6">
+    <div class="flex flex-col sm:flex-row items-center gap-4">
+      <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-secondary/50 group-hover:border-secondary transition-colors duration-300">
+        <img src={avatar} alt={`${name}'s avatar`} class="w-full h-full object-cover" />
+      </div>
+      <div class="text-center sm:text-left">
+        <h3 class="text-xl font-bold text-light mb-1 group-hover:text-secondary transition-colors">{name}</h3>
+        {link && (
+          <a href={link} target="_blank" rel="noopener noreferrer" class="text-secondary/70 hover:text-secondary text-sm inline-flex items-center mt-1 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+            Personal Page
+          </a>
+        )}
+      </div>
+    </div>
+    
+    {bio && (
+      <div class="mt-4">
+        <p class="text-light/80 text-sm">{bio}</p>
+      </div>
+    )}
+    
+    {skills.length > 0 && (
+      <div class="mt-4 flex flex-wrap gap-2">
+        {skills.map((skill) => (
+          <span class="px-2 py-1 bg-primary/80 text-secondary text-xs rounded-md border border-secondary/30">
+            {skill}
+          </span>
+        ))}
+      </div>
+    )}
+  </div>
+</div>

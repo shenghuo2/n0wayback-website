@@ -1,0 +1,49 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import MemberCard from '../components/MemberCard.astro';
+import { members } from '../data/members';
+---
+
+<MainLayout title="Team Members">
+  <section class="py-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-16">
+        <span class="text-secondary font-mono mb-2 block">Our Team</span>
+        <h1 class="text-4xl font-bold text-light mb-4">Meet Our Members</h1>
+        <p class="text-light/70 max-w-2xl mx-auto">
+          The core strength of N0wayBack comes from our diverse team members. Each member brings unique skills and perspectives to tackle complex cybersecurity challenges.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {members.map((member) => (
+          <MemberCard 
+            name={member.name}
+            avatar={member.avatar}
+            link={member.link}
+            bio={member.bio}
+            skills={member.skills}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Join Team Section -->
+  <section class="py-16 bg-dark">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center">
+        <h2 class="text-3xl font-bold text-light mb-4">Want to Join Our Team?</h2>
+        <p class="text-light/70 max-w-2xl mx-auto mb-8">
+          We're always looking for talented individuals who are passionate about cybersecurity and CTF competitions. If you think you have what it takes to be part of N0wayBack, reach out to us!
+        </p>
+        <a href="mailto:contact@n0wayback.com" class="px-8 py-4 bg-secondary text-dark rounded-md font-bold hover:bg-secondary/80 transition-colors inline-flex items-center">
+          Apply to Join
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</MainLayout>
