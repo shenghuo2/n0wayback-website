@@ -9,66 +9,66 @@ const featuredMembers = members.slice(0, 3);
 
 <MainLayout title="Intro - Team Introduction">
   <!-- Hero Section -->
-  <section class="py-20 bg-dark">
+  <section class="py-20 bg-dark-light dark:bg-dark-dark">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="flex flex-col md:flex-row items-center justify-between gap-10">
         <div class="md:w-1/2 relative overflow-hidden">
-          <div class="absolute inset-[-10%] bg-center bg-no-repeat" style={`background-image: url(${logo.src}); background-size: 80%;`}></div>
-          <div class="absolute inset-0 bg-dark/70 z-0"></div>
+          <div class="absolute inset-[-10%] bg-center bg-no-repeat" style={`background-image: url(${logo.src}); background-size: 50%;`}></div>
+          <div class="absolute inset-0 bg-dark-light/70 dark:bg-dark-dark/70 z-0"></div>
           <div class="relative z-10 p-6">
             <div class="flex items-center mb-6">
-              <h1 class="text-4xl md:text-5xl font-bold text-light">N0wayBack</h1>
+              <h1 class="text-4xl md:text-5xl font-bold text-light-light dark:text-light-dark">N0wayBack</h1>
             </div>
-            <p class="text-light/80 text-lg mb-8">
+            <p class="text-light-light/80 dark:text-light-dark/80 text-lg mb-8">
               We are an elite CTF team focused on cybersecurity competitions, dedicated to pushing the boundaries of security technology through challenges and research.
             </p>
             <div class="flex flex-wrap gap-4">
-              <a href="/members" class="px-6 py-3 bg-secondary text-dark rounded-md font-bold hover:bg-secondary/80 transition-colors">
+              <a href="/members" class="px-6 py-3 bg-secondary-light dark:bg-secondary-dark text-dark-light dark:text-dark-dark rounded-md font-bold hover:bg-secondary-light/80 dark:hover:bg-secondary-dark/80 transition-colors">
                 Meet Our Team
               </a>
-              <a href="/honors" class="px-6 py-3 border border-secondary text-secondary rounded-md font-bold hover:bg-secondary/10 transition-colors">
+              <a href="/honors" class="px-6 py-3 border border-secondary-light dark:border-secondary-dark text-secondary-light dark:text-secondary-dark rounded-md font-bold hover:bg-secondary-light/10 dark:hover:bg-secondary-dark/10 transition-colors">
                 View Our Achievements
               </a>
             </div>
           </div>
         </div>
         <div class="md:w-1/2 mt-10 md:mt-0">
-          <div class="bg-primary border border-secondary/20 p-6 rounded-lg relative overflow-hidden">
-            <div class="absolute -top-10 -right-10 w-40 h-40 bg-secondary/20 rounded-full blur-3xl"></div>
-            <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-secondary/10 rounded-full blur-3xl"></div>
+          <div class="bg-primary-light dark:bg-primary-dark border border-secondary-light/20 dark:border-secondary-dark/20 p-6 rounded-lg relative overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-40 h-40 bg-secondary-light/20 dark:bg-secondary-dark/20 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-secondary-light/10 dark:bg-secondary-dark/10 rounded-full blur-3xl"></div>
             <div class="relative z-10">
-              <span class="text-secondary font-mono mb-2 block"># whoami</span>
-              <p class="text-xl font-bold text-light mb-2">
+              <span class="text-secondary-light dark:text-secondary-dark font-mono mb-2 block"># whoami</span>
+              <p class="text-xl font-bold text-light-light dark:text-light-dark mb-2">
                 Elite Cybersecurity Team
               </p>
               <div class="space-y-4 my-6">
                 <div class="flex items-start gap-3">
-                  <div class="w-6 h-6 flex items-center justify-center rounded-full bg-secondary/20 text-secondary mt-0.5 flex-shrink-0">
+                  <div class="w-6 h-6 flex items-center justify-center rounded-full bg-secondary-light/20 dark:bg-secondary-dark/20 text-secondary-light dark:text-secondary-dark mt-0.5 flex-shrink-0">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <p class="text-light/70">Diverse expertise across various cybersecurity domains</p>
+                  <p class="text-light-light/70 dark:text-light-dark/70">Diverse expertise across various cybersecurity domains</p>
                 </div>
                 <div class="flex items-start gap-3">
-                  <div class="w-6 h-6 flex items-center justify-center rounded-full bg-secondary/20 text-secondary mt-0.5 flex-shrink-0">
+                  <div class="w-6 h-6 flex items-center justify-center rounded-full bg-secondary-light/20 dark:bg-secondary-dark/20 text-secondary-light dark:text-secondary-dark mt-0.5 flex-shrink-0">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <p class="text-light/70">Extensive experience in international CTF competitions</p>
+                  <p class="text-light-light/70 dark:text-light-dark/70">Extensive experience in international CTF competitions</p>
                 </div>
                 <div class="flex items-start gap-3">
-                  <div class="w-6 h-6 flex items-center justify-center rounded-full bg-secondary/20 text-secondary mt-0.5 flex-shrink-0">
+                  <div class="w-6 h-6 flex items-center justify-center rounded-full bg-secondary-light/20 dark:bg-secondary-dark/20 text-secondary-light dark:text-secondary-dark mt-0.5 flex-shrink-0">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <p class="text-light/70">Committed to knowledge sharing and community building</p>
+                  <p class="text-light-light/70 dark:text-light-dark/70">Committed to knowledge sharing and community building</p>
                 </div>
               </div>
-              <div class="font-mono text-secondary">
-                <span class="text-light">$</span> ./join_team.sh
+              <div class="font-mono text-secondary-light dark:text-secondary-dark">
+                <span class="text-light-light dark:text-light-dark">$</span> ./join_team.sh
               </div>
             </div>
           </div>
@@ -81,43 +81,43 @@ const featuredMembers = members.slice(0, 3);
   <section class="py-16">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="text-center mb-12">
-        <span class="text-secondary font-mono mb-2 block">About Us</span>
-        <h2 class="text-3xl font-bold text-light">Who We Are</h2>
+        <span class="text-secondary-light dark:text-secondary-dark font-mono mb-2 block">About Us</span>
+        <h2 class="text-3xl font-bold text-light-light dark:text-light-dark">Who We Are</h2>
       </div>
       
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-primary p-6 rounded-lg border border-secondary/20 hover:border-secondary transition-all duration-300">
-          <div class="w-12 h-12 flex items-center justify-center bg-secondary/10 rounded-md text-secondary mb-4">
+        <div class="bg-primary-light dark:bg-primary-dark p-6 rounded-lg border border-secondary-light/20 dark:border-secondary-dark/20 hover:border-secondary-light dark:hover:border-secondary-dark transition-all duration-300">
+          <div class="w-12 h-12 flex items-center justify-center bg-secondary-light/10 dark:bg-secondary-dark/10 rounded-md text-secondary-light dark:text-secondary-dark mb-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
           </div>
-          <h3 class="text-xl font-bold text-light mb-3">Technical Excellence</h3>
-          <p class="text-light/70">
+          <h3 class="text-xl font-bold text-light-light dark:text-light-dark mb-3">Technical Excellence</h3>
+          <p class="text-light-light/70 dark:text-light-dark/70">
             Our team members excel in various cybersecurity domains including Web, PWN, Reverse Engineering, Crypto, and more. We constantly push our technical boundaries.
           </p>
         </div>
         
-        <div class="bg-primary p-6 rounded-lg border border-secondary/20 hover:border-secondary transition-all duration-300">
-          <div class="w-12 h-12 flex items-center justify-center bg-secondary/10 rounded-md text-secondary mb-4">
+        <div class="bg-primary-light dark:bg-primary-dark p-6 rounded-lg border border-secondary-light/20 dark:border-secondary-dark/20 hover:border-secondary-light dark:hover:border-secondary-dark transition-all duration-300">
+          <div class="w-12 h-12 flex items-center justify-center bg-secondary-light/10 dark:bg-secondary-dark/10 rounded-md text-secondary-light dark:text-secondary-dark mb-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
             </svg>
           </div>
-          <h3 class="text-xl font-bold text-light mb-3">Collaborative Spirit</h3>
-          <p class="text-light/70">
+          <h3 class="text-xl font-bold text-light-light dark:text-light-dark mb-3">Collaborative Spirit</h3>
+          <p class="text-light-light/70 dark:text-light-dark/70">
             We believe in the power of teamwork. Our success comes from effectively combining individual strengths and sharing knowledge among team members.
           </p>
         </div>
         
-        <div class="bg-primary p-6 rounded-lg border border-secondary/20 hover:border-secondary transition-all duration-300">
-          <div class="w-12 h-12 flex items-center justify-center bg-secondary/10 rounded-md text-secondary mb-4">
+        <div class="bg-primary-light dark:bg-primary-dark p-6 rounded-lg border border-secondary-light/20 dark:border-secondary-dark/20 hover:border-secondary-light dark:hover:border-secondary-dark transition-all duration-300">
+          <div class="w-12 h-12 flex items-center justify-center bg-secondary-light/10 dark:bg-secondary-dark/10 rounded-md text-secondary-light dark:text-secondary-dark mb-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
             </svg>
           </div>
-          <h3 class="text-xl font-bold text-light mb-3">Continuous Learning</h3>
-          <p class="text-light/70">
+          <h3 class="text-xl font-bold text-light-light dark:text-light-dark mb-3">Continuous Learning</h3>
+          <p class="text-light-light/70 dark:text-light-dark/70">
             The cybersecurity landscape evolves rapidly. We're committed to continuous learning, research, and staying at the forefront of security technologies.
           </p>
         </div>
@@ -126,24 +126,24 @@ const featuredMembers = members.slice(0, 3);
   </section>
   
   <!-- Featured Members Section -->
-  <section class="py-16 bg-dark">
+  <section class="py-16 bg-dark-light dark:bg-dark-dark">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="text-center mb-12">
-        <span class="text-secondary font-mono mb-2 block">Our Team</span>
-        <h2 class="text-3xl font-bold text-light">Featured Members</h2>
+        <span class="text-secondary-light dark:text-secondary-dark font-mono mb-2 block">Our Team</span>
+        <h2 class="text-3xl font-bold text-light-light dark:text-light-dark">Featured Members</h2>
       </div>
       
       <div class="grid md:grid-cols-3 gap-8">
         {featuredMembers.map((member) => (
-          <div class="bg-primary p-6 rounded-lg border border-secondary/20 hover:border-secondary transition-all duration-300">
-            <div class="w-20 h-20 mx-auto rounded-full overflow-hidden border-2 border-secondary/50 mb-4">
+          <div class="bg-primary-light dark:bg-primary-dark p-6 rounded-lg border border-secondary-light/20 dark:border-secondary-dark/20 hover:border-secondary-light dark:hover:border-secondary-dark transition-all duration-300">
+            <div class="w-20 h-20 mx-auto rounded-full overflow-hidden border-2 border-secondary-light/50 dark:border-secondary-dark/50 mb-4">
               <img src={member.avatar} alt={`${member.name}'s avatar`} class="w-full h-full object-cover" />
             </div>
-            <h3 class="text-xl font-bold text-light text-center mb-2">{member.name}</h3>
-            {member.bio && <p class="text-light/70 text-center mb-4">{member.bio}</p>}
+            <h3 class="text-xl font-bold text-light-light dark:text-light-dark text-center mb-2">{member.name}</h3>
+            {member.bio && <p class="text-light-light/70 dark:text-light-dark/70 text-center mb-4">{member.bio}</p>}
             <div class="flex flex-wrap justify-center gap-2">
               {member.skills?.map((skill) => (
-                <span class="px-3 py-1 bg-secondary/10 text-secondary text-xs rounded-full">{skill}</span>
+                <span class="px-3 py-1 bg-secondary-light/10 dark:bg-secondary-dark/10 text-secondary-light dark:text-secondary-dark text-xs rounded-full">{skill}</span>
               ))}
             </div>
           </div>
@@ -151,7 +151,7 @@ const featuredMembers = members.slice(0, 3);
       </div>
       
       <div class="text-center mt-10">
-        <a href="/members" class="px-6 py-3 border border-secondary text-secondary rounded-md font-bold hover:bg-secondary/10 transition-colors inline-flex items-center">
+        <a href="/members" class="px-6 py-3 border border-secondary-light dark:border-secondary-dark text-secondary-light dark:text-secondary-dark rounded-md font-bold hover:bg-secondary-light/10 dark:hover:bg-secondary-dark/10 transition-colors inline-flex items-center">
           See All Members
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -164,13 +164,13 @@ const featuredMembers = members.slice(0, 3);
   <!-- Join Us Section -->
   <section class="py-16">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="bg-primary p-8 rounded-lg border border-secondary/20">
+      <div class="bg-primary-light dark:bg-primary-dark p-8 rounded-lg border border-secondary-light/20 dark:border-secondary-dark/20">
         <div class="text-center">
-          <h2 class="text-3xl font-bold text-light mb-4">Interested in Joining Us?</h2>
-          <p class="text-light/70 max-w-2xl mx-auto mb-8">
+          <h2 class="text-3xl font-bold text-light-light dark:text-light-dark mb-4">Interested in Joining Us?</h2>
+          <p class="text-light-light/70 dark:text-light-dark/70 max-w-2xl mx-auto mb-8">
             We're always looking for passionate cybersecurity enthusiasts to join our team. If you're dedicated to honing your skills and contributing to cutting-edge security challenges, we'd love to hear from you.
           </p>
-          <a href="mailto:contact@n0wayback.com" class="px-8 py-4 bg-secondary text-dark rounded-md font-bold hover:bg-secondary/80 transition-colors inline-flex items-center">
+          <a href="mailto:contact@n0wayback.com" class="px-8 py-4 bg-secondary-light dark:bg-secondary-dark text-dark-light dark:text-dark-dark rounded-md font-bold hover:bg-secondary-light/80 dark:hover:bg-secondary-dark/80 transition-colors inline-flex items-center">
             Get in Touch
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />

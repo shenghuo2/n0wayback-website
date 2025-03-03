@@ -10,16 +10,16 @@ interface Props {
 const { name, avatar, link, bio, skills = [] } = Astro.props;
 ---
 
-<div class="bg-dark rounded-lg overflow-hidden border border-secondary/20 hover:border-secondary transition-all duration-300 transform hover:-translate-y-1 group">
+<div class="bg-dark-light dark:bg-dark-dark rounded-lg overflow-hidden border border-secondary-light/20 dark:border-secondary-dark/20 hover:border-secondary-light dark:hover:border-secondary-dark transition-all duration-300 transform hover:-translate-y-1 group">
   <div class="p-6">
     <div class="flex flex-col sm:flex-row items-center gap-4">
-      <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-secondary/50 group-hover:border-secondary transition-colors duration-300">
+      <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-secondary-light/50 dark:border-secondary-dark/50 group-hover:border-secondary-light dark:group-hover:border-secondary-dark transition-colors duration-300">
         <img src={avatar} alt={`${name}'s avatar`} class="w-full h-full object-cover" />
       </div>
       <div class="text-center sm:text-left">
-        <h3 class="text-xl font-bold text-light mb-1 group-hover:text-secondary transition-colors">{name}</h3>
+        <h3 class="text-xl font-bold text-light-light dark:text-light-dark mb-1 group-hover:text-secondary-light dark:group-hover:text-secondary-dark transition-colors">{name}</h3>
         {link && (
-          <a href={link} target="_blank" rel="noopener noreferrer" class="text-secondary/70 hover:text-secondary text-sm inline-flex items-center mt-1 transition-colors">
+          <a href={link} target="_blank" rel="noopener noreferrer" class="text-secondary-light/70 dark:text-secondary-dark/70 hover:text-secondary-light dark:hover:text-secondary-dark text-sm inline-flex items-center mt-1 transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
@@ -31,14 +31,14 @@ const { name, avatar, link, bio, skills = [] } = Astro.props;
     
     {bio && (
       <div class="mt-4">
-        <p class="text-light/80 text-sm">{bio}</p>
+        <p class="text-light-light/80 dark:text-light-dark/80 text-sm">{bio}</p>
       </div>
     )}
     
     {skills.length > 0 && (
       <div class="mt-4 flex flex-wrap gap-2">
         {skills.map((skill) => (
-          <span class="px-2 py-1 bg-primary/80 text-secondary text-xs rounded-md border border-secondary/30">
+          <span class="px-2 py-1 bg-primary-light/80 dark:bg-primary-dark/80 text-secondary-light dark:text-secondary-dark text-xs rounded-md border border-secondary-light/30 dark:border-secondary-dark/30">
             {skill}
           </span>
         ))}

@@ -7,38 +7,72 @@ const navItems = [
 import logo from '../assets/logo.svg';
 ---
 
-<header class="sticky top-0 z-50 bg-primary/90 backdrop-blur-sm border-b border-secondary/20">
+<header class="sticky top-0 z-50 bg-primary-light dark:bg-primary-dark/90 backdrop-blur-sm border-b border-secondary-light/20 dark:border-secondary-dark/20">
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
     <div class="flex justify-between items-center h-16">
       <div class="flex items-center">
         <a href="/" class="flex items-center">
           <img src={logo.src} alt="N0wayBack Logo" class="h-8 mr-2" />
-          <div class="logo-text font-mono text-xl font-bold">N0wayBack</div>
+          <div class="logo-text font-mono text-xl font-bold text-light-light dark:text-light-dark">N0wayBack</div>
         </a>
       </div>
       
-      <nav class="hidden md:flex">
+      <nav class="hidden md:flex items-center">
         <ul class="flex space-x-8">
           {
             navItems.map((item, index) => (
               <li>
                 <a 
                   href={item.href} 
-                  class="relative text-light hover:text-secondary transition-colors font-medium flex items-center group"
+                  class="relative text-light-light dark:text-light-dark hover:text-secondary-light dark:hover:text-secondary-dark transition-colors font-medium flex items-center group"
                 >
-                  <span class="text-secondary font-mono mr-1">0{index + 1}.</span>
+                  <span class="text-secondary-light dark:text-secondary-dark font-mono mr-1">0{index + 1}.</span>
                   {item.label}
-                  <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-secondary transition-all duration-300 group-hover:w-full"></span>
+                  <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-secondary-light dark:bg-secondary-dark transition-all duration-300 group-hover:w-full"></span>
                 </a>
               </li>
             ))
           }
         </ul>
+        
+        <!-- Theme Toggle Button -->
+        <button 
+          type="button"
+          class="theme-toggle ml-8 p-2 rounded-md text-light-light dark:text-light-dark hover:bg-primary-dark/10 dark:hover:bg-primary-light/10 transition-colors"
+          aria-label="Toggle dark mode"
+          onclick="document.documentElement.classList.toggle('dark'); localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');"
+        >
+          <!-- Sun icon (shown in dark mode) -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+          <!-- Moon icon (shown in light mode) -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+        </button>
       </nav>
       
       <!-- Mobile menu button -->
-      <div class="md:hidden">
-        <button id="menu-toggle" type="button" class="text-secondary">
+      <div class="md:hidden flex items-center">
+        <!-- Theme Toggle Button (Mobile) -->
+        <button 
+          type="button"
+          class="theme-toggle mr-4 p-2 rounded-md text-light-light dark:text-light-dark hover:bg-primary-dark/10 dark:hover:bg-primary-light/10 transition-colors"
+          aria-label="Toggle dark mode"
+          onclick="document.documentElement.classList.toggle('dark'); localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');"
+        >
+          <!-- Sun icon (shown in dark mode) -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+          <!-- Moon icon (shown in light mode) -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+        </button>
+        
+        <button id="menu-toggle" type="button" class="text-secondary-light dark:text-secondary-dark">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
@@ -49,14 +83,14 @@ import logo from '../assets/logo.svg';
   
   <!-- Mobile menu -->
   <div id="mobile-menu" class="hidden md:hidden">
-    <div class="px-2 pt-2 pb-3 space-y-1 border-t border-secondary/20">
+    <div class="px-2 pt-2 pb-3 space-y-1 border-t border-secondary-light/20 dark:border-secondary-dark/20">
       {
         navItems.map((item, index) => (
           <a 
             href={item.href} 
-            class="block px-3 py-2 text-base font-medium text-light hover:text-secondary hover:bg-dark/50 rounded-md transition-colors"
+            class="block px-3 py-2 text-base font-medium text-light-light dark:text-light-dark hover:text-secondary-light dark:hover:text-secondary-dark hover:bg-dark/50 dark:hover:bg-light/50 rounded-md transition-colors"
           >
-            <span class="text-secondary font-mono">0{index + 1}.</span> {item.label}
+            <span class="text-secondary-light dark:text-secondary-dark font-mono">0{index + 1}.</span> {item.label}
           </a>
         ))
       }

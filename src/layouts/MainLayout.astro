@@ -20,8 +20,25 @@ const { title, description = "Official website of N0wayBack Team" } = Astro.prop
     <title>{title} | N0wayBack</title>
     <link rel="icon" type="image/svg+xml" href={logo.src} />
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script is:inline>
+      // 立即执行脚本，避免闪烁
+      const getThemePreference = () => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      };
+      
+      const theme = getThemePreference();
+      document.documentElement.classList.toggle('dark', theme === 'dark');
+      
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem('theme', theme);
+      }
+    </script>
   </head>
-  <body class="bg-primary text-light min-h-screen flex flex-col">
+  <body class="bg-primary-light dark:bg-primary-dark text-light-light dark:text-light-dark min-h-screen flex flex-col">
     <Navbar />
     <main class="flex-grow">
       <slot />
@@ -32,9 +49,15 @@ const { title, description = "Official website of N0wayBack Team" } = Astro.prop
 
 <style is:global>
   :root {
-    --selection-bg: rgba(100, 255, 218, 0.2);
+    --selection-bg: rgba(0, 158, 127, 0.3); /* 浅色模式使用更深的颜色 */
+    --scrollbar-track: #e5e7eb;
+    --scrollbar-thumb: #009e7f; /* 更新为浅色模式的深绿色 */
+  }
+  
+  .dark {
+    --selection-bg: rgba(100, 255, 218, 0.2); /* 暗色模式继续使用原来的颜色 */
     --scrollbar-track: #0a192f;
-    --scrollbar-thumb: #64ffda;
+    --scrollbar-thumb: #64ffda; /* 暗色模式继续使用原来的颜色 */
   }
   
   ::selection {
@@ -50,21 +73,7 @@ const { title, description = "Official website of N0wayBack Team" } = Astro.prop
   }
   
   ::-webkit-scrollbar-thumb {
-    background-color: var(--scrollbar-thumb);
-    border-radius: 10px;
-    border: 3px solid var(--scrollbar-track);
-  }
-  
-  html {
-    scroll-behavior: smooth;
-  }
-  
-  body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-  }
-  
-  code, pre {
-    font-family: 'Fira Code', monospace;
+    background: var(--scrollbar-thumb);
+    border-radius: 6px;
   }
 </style>
