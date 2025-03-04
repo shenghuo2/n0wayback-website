@@ -1,141 +1,469 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import { honors } from '../data/honors';
-import logo from '../assets/logo.svg';
 
-// Sort by date
+// Sort by date in descending order
 const sortedHonors = [...honors].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+// Group by year
+const honorsByYear = sortedHonors.reduce((acc, honor) => {
+  const year = new Date(honor.date).getFullYear();
+  if (!acc[year]) {
+    acc[year] = [];
+  }
+  acc[year].push(honor);
+  return acc;
+}, {} as Record<number, typeof honors>);
+
+// Sort years in descending order
+const years = Object.keys(honorsByYear).map(Number).sort((a, b) => b - a);
 ---
 
-<MainLayout title="Hall of Fame">
-  <section class="py-20">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="text-center mb-16">
-        <span class="text-secondary-light dark:text-secondary-dark font-mono mb-2 block">Our Achievements</span>
-        <h1 class="text-4xl font-bold text-light-light dark:text-light-dark mb-4">Hall of Fame</h1>
-        <p class="text-light-light/70 dark:text-light-dark/70 max-w-2xl mx-auto">
-          This page showcases the honors and achievements of the N0wayBack team in various CTF competitions, witnessing our efforts and growth along the way.
-        </p>
-      </div>
-      
-      <div class="space-y-12">
-        {sortedHonors.map((honor, index) => (
-          <div class={`flex flex-col lg:flex-row gap-8 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
-            <div class="lg:w-1/3">
-              <div class="relative overflow-hidden rounded-lg border border-secondary-light/30 dark:border-secondary-dark/30 h-64 group">
-                <div class="absolute inset-0 bg-gradient-to-t from-dark-light dark:from-dark-dark to-transparent z-10"></div>
-                {honor.image ? (
-                  <img 
-                    src={honor.image} 
-                    alt={`${honor.name} honor image`} 
-                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                ) : (
-                  <div class="w-full h-full bg-secondary-light/10 dark:bg-secondary-dark/10 flex items-center justify-center">
-                    <img 
-                      src={logo.src} 
-                      alt="N0wayBack logo" 
-                      class="h-16"
-                    />
-                  </div>
-                )}
-                <div class="absolute bottom-4 left-4 z-20 bg-dark-light/80 dark:bg-dark-dark/80 backdrop-blur-sm px-3 py-1 rounded-md border border-secondary-light/30 dark:border-secondary-dark/30">
-                  <span class="text-secondary-light dark:text-secondary-dark font-mono text-sm">{honor.rank}</span>
-                </div>
-              </div>
-            </div>
-            
-            <div class="lg:w-2/3">
-              <div class="space-y-4">
-                <div class="flex items-start justify-between">
-                  <h2 class="text-2xl md:text-3xl font-bold text-light-light dark:text-light-dark">{honor.name}</h2>
-                  <div class="flex items-center gap-2 rounded-full px-4 py-1 bg-secondary-light/10 dark:bg-secondary-dark/10 text-secondary-light dark:text-secondary-dark">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                    <span class="text-sm font-medium">{new Date(honor.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}</span>
-                  </div>
-                </div>
-                
-                <p class="text-light-light/70 dark:text-light-dark/70">{honor.description}</p>
-                
-                {honor.challenges && (
-                  <div>
-                    <h3 class="text-xl font-bold text-light-light dark:text-light-dark mb-2">Key Challenges Solved</h3>
-                    <div class="flex flex-wrap gap-2">
-                      {honor.challenges.map((challenge) => (
-                        <span class="px-3 py-1 bg-secondary-light/10 dark:bg-secondary-dark/10 text-secondary-light dark:text-secondary-dark text-sm rounded-full">{challenge}</span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                
-                {honor.ctftime && (
-                  <a 
-                    href={honor.ctftime} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    class="inline-flex items-center text-secondary-light dark:text-secondary-dark hover:underline mt-2"
-                  >
-                    View on CTFtime
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                  </a>
-                )}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+<MainLayout title="Honors">
+  <div class="cyberpunk-grid"></div>
   
-  <!-- Goals Section -->
-  <section class="py-16 bg-dark-light dark:bg-dark-dark">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="text-center mb-12">
-        <span class="text-secondary-light dark:text-secondary-dark font-mono mb-2 block">Looking Forward</span>
-        <h2 class="text-3xl font-bold text-light-light dark:text-light-dark">Our Goals</h2>
-      </div>
+  <section class="py-8 md:py-16">
+    <div class="w-full max-w-4xl mx-auto px-4">
+
       
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-primary-light dark:bg-primary-dark p-6 rounded-lg border border-secondary-light/20 dark:border-secondary-dark/20 hover:border-secondary-light dark:hover:border-secondary-dark transition-all duration-300">
-          <div class="w-12 h-12 flex items-center justify-center bg-secondary-light/10 dark:bg-secondary-dark/10 rounded-md text-secondary-light dark:text-secondary-dark mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-            </svg>
+      <div class="terminal-container">
+        <!-- 移动端简化的终端标题 -->
+        <div class="terminal-header font-mono text-xs md:hidden">
+          <div class="text-center py-2">
+            <div>SECURITY SHELL - HONORS_TIMELINE</div>
+            <div>[root@n0wayback ~]</div>
           </div>
-          <h3 class="text-xl font-bold text-light-light dark:text-light-dark mb-2">Top 10 Global Ranking</h3>
-          <p class="text-light-light/70 dark:text-light-dark/70">
-            We aim to establish ourselves as one of the top 10 CTF teams globally, consistently performing at the highest level in international competitions.
-          </p>
         </div>
         
-        <div class="bg-primary-light dark:bg-primary-dark p-6 rounded-lg border border-secondary-light/20 dark:border-secondary-dark/20 hover:border-secondary-light dark:hover:border-secondary-dark transition-all duration-300">
-          <div class="w-12 h-12 flex items-center justify-center bg-secondary-light/10 dark:bg-secondary-dark/10 rounded-md text-secondary-light dark:text-secondary-dark mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold text-light-light dark:text-light-dark mb-2">Research Publications</h3>
-          <p class="text-light-light/70 dark:text-light-dark/70">
-            Contribute to the cybersecurity community by publishing original research, tools, and techniques discovered during our CTF journey.
-          </p>
-        </div>
+        <!-- 桌面端完整的终端标题 -->
+        <pre class="terminal-header font-mono text-xs hidden md:block overflow-x-auto">
+┌─────────────────────────────────────────────────────────────────────────┐
+│                      SECURITY SHELL - HONORS_TIMELINE                   │
+│                           [root@n0wayback ~]                            │
+└─────────────────────────────────────────────────────────────────────────┘
+        </pre>
         
-        <div class="bg-primary-light dark:bg-primary-dark p-6 rounded-lg border border-secondary-light/20 dark:border-secondary-dark/20 hover:border-secondary-light dark:hover:border-secondary-dark transition-all duration-300">
-          <div class="w-12 h-12 flex items-center justify-center bg-secondary-light/10 dark:bg-secondary-dark/10 rounded-md text-secondary-light dark:text-secondary-dark mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
+        <div class="terminal-body font-mono text-sm p-3 md:p-4">
+          <div class="vertical-timeline">
+            {years.map((year) => (
+              <div class="year-marker">
+                <div class="year-label">{year}</div>
+                
+                {honorsByYear[year].map((honor, honorIndex) => {
+                  const date = new Date(honor.date);
+                  const formattedDate = date.toLocaleDateString('en-US', { 
+                    month: 'short',
+                    day: 'numeric'
+                  });
+                  
+                  const isEven = honorIndex % 2 === 0;
+                  const isMilestone = honor.isMilestone;
+                  
+                  return (
+                    <div class={`timeline-entry ${isEven ? 'timeline-left' : 'timeline-right'}`}>
+                      <div class="timeline-connector">
+                        <div class="connector-line"></div>
+                        <div class={`connector-dot ${isMilestone ? 'milestone-dot' : ''}`}></div>
+                      </div>
+                      
+                      <div class={`timeline-content p-3 border ${isMilestone ? 'milestone-card' : 'border-secondary-light/20 dark:border-secondary-dark/20'} hover:border-secondary-light/40 dark:hover:border-secondary-dark/40 transition-colors`}>
+                        <div class="flex items-center gap-2 mb-1">
+                          <span class="text-secondary-light dark:text-secondary-dark">[{formattedDate}]</span>
+                          <span class={`badge ${isMilestone ? 'milestone-badge' : 'rank-badge'}`}>{honor.rank}</span>
+                        </div>
+                        
+                        <h3 class="text-lg font-bold text-light-light dark:text-light-dark cyber-heading">
+                          {honor.name}
+                        </h3>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
+            
+            <div class="timeline-end">
+              <span class="text-secondary-light/70 dark:text-secondary-dark/70">EOF</span>
+            </div>
           </div>
-          <h3 class="text-xl font-bold text-light-light dark:text-light-dark mb-2">Mentorship Program</h3>
-          <p class="text-light-light/70 dark:text-light-dark/70">
-            Develop a structured mentorship program to nurture new talent and help build the next generation of cybersecurity professionals.
-          </p>
+          
+          <div class="terminal-prompt mt-8">
+            <span class="text-green-500 dark:text-green-400">root@n0wayback</span>:<span class="text-blue-500 dark:text-blue-400">~/honors</span>$ <span class="typing-cursor">_</span>
+          </div>
         </div>
       </div>
     </div>
   </section>
 </MainLayout>
+
+<style>
+  /* 赛博朋克网格背景 */
+  .cyberpunk-grid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      linear-gradient(to right, rgba(65, 184, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(65, 184, 255, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.2;
+  }
+  
+  /* 霓虹文字效果 */
+  .neon-text {
+    text-shadow: 0 0 5px rgba(66, 211, 146, 0.3), 0 0 10px rgba(66, 211, 146, 0.2);
+  }
+  
+  /* 终端容器样式 */
+  .terminal-container {
+    background-color: rgba(240, 240, 245, 0.8);
+    border: 1px solid rgba(66, 211, 146, 0.5);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  :root.dark .terminal-container {
+    background-color: rgba(16, 16, 32, 0.6);
+    border: 1px solid rgba(66, 211, 146, 0.3);
+  }
+  
+  .terminal-header {
+    background-color: rgba(66, 211, 146, 0.2);
+    color: rgba(30, 30, 30, 0.9);
+    padding: 4px 0;
+    text-align: center;
+    border-bottom: 1px solid rgba(66, 211, 146, 0.5);
+  }
+  
+  :root.dark .terminal-header {
+    background-color: rgba(26, 26, 46, 0.8);
+    color: rgba(255, 255, 255, 0.8);
+    border-bottom: 1px solid rgba(66, 211, 146, 0.3);
+  }
+  
+  .terminal-body {
+    background-color: rgba(250, 250, 252, 0.9);
+    color: rgba(30, 30, 30, 0.9);
+    min-height: 200px;
+  }
+  
+  :root.dark .terminal-body {
+    background-color: rgba(22, 22, 38, 0.7);
+    color: rgba(255, 255, 255, 0.85);
+  }
+  
+  /* 垂直时间线样式 */
+  .vertical-timeline {
+    position: relative;
+    padding: 20px 0;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .vertical-timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background: rgba(66, 211, 146, 0.3);
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+  
+  /* 年份标记 */
+  .year-marker {
+    position: relative;
+    margin-bottom: 30px;
+  }
+  
+  .year-label {
+    position: relative;
+    width: 80px;
+    margin: 0 auto 20px;
+    padding: 2px 0;
+    text-align: center;
+    background: rgba(66, 211, 146, 0.15);
+    border: 1px solid rgba(66, 211, 146, 0.3);
+    border-radius: 4px;
+    color: rgba(20, 120, 80, 1);
+    font-weight: bold;
+    z-index: 2;
+  }
+  
+  :root.dark .year-label {
+    background: rgba(66, 211, 146, 0.2);
+    border: 1px solid rgba(66, 211, 146, 0.4);
+    color: rgba(66, 211, 146, 1);
+  }
+  
+  /* 时间线条目 */
+  .timeline-entry {
+    position: relative;
+    margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+  }
+  
+  .timeline-left {
+    justify-content: flex-end;
+    padding-right: 20px;
+    width: 50%;
+  }
+  
+  .timeline-right {
+    justify-content: flex-start;
+    padding-left: 20px;
+    width: 50%;
+    margin-left: auto;
+  }
+  
+  /* 连接器 */
+  .timeline-connector {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+  }
+  
+  .timeline-left .timeline-connector {
+    right: 0;
+    left: auto;
+    transform: translate(50%, -50%);
+  }
+  
+  .timeline-right .timeline-connector {
+    left: 0;
+    right: auto;
+    transform: translate(-50%, -50%);
+  }
+  
+  .connector-line {
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    background: rgba(66, 211, 146, 0.3);
+    top: 50%;
+  }
+  
+  .timeline-left .connector-line {
+    right: 4px;
+  }
+  
+  .timeline-right .connector-line {
+    left: 4px;
+  }
+  
+  .connector-dot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(66, 211, 146, 0.8);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  /* 里程碑样式 */
+  .milestone-dot {
+    width: 12px;
+    height: 12px;
+    background: rgba(255, 215, 0, 0.8);
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+  }
+  
+  :root.dark .milestone-dot {
+    background: rgba(255, 215, 0, 0.9);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+  }
+  
+  .milestone-card {
+    border: 1px solid rgba(255, 215, 0, 0.3) !important;
+    background-color: rgba(255, 215, 0, 0.05);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.1);
+  }
+  
+  :root.dark .milestone-card {
+    border: 1px solid rgba(255, 215, 0, 0.4) !important;
+    background-color: rgba(255, 215, 0, 0.07);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.15);
+  }
+  
+  .milestone-card:hover {
+    border: 1px solid rgba(255, 215, 0, 0.5) !important;
+    background-color: rgba(255, 215, 0, 0.08);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+  }
+  
+  :root.dark .milestone-card:hover {
+    border: 1px solid rgba(255, 215, 0, 0.6) !important;
+    background-color: rgba(255, 215, 0, 0.1);
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.25);
+  }
+  
+  /* 时间线内容 */
+  .timeline-content {
+    background-color: rgba(245, 245, 250, 0.8);
+    border: 1px solid rgba(66, 211, 146, 0.3) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    max-width: 100%;
+    transition: all 0.3s ease;
+  }
+  
+  :root.dark .timeline-content {
+    background-color: rgba(30, 30, 50, 0.5);
+    border: 1px solid rgba(66, 211, 146, 0.2) !important;
+    box-shadow: none;
+  }
+  
+  .timeline-content:hover {
+    background-color: rgba(250, 250, 255, 0.95);
+    border: 1px solid rgba(66, 211, 146, 0.5) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+  
+  :root.dark .timeline-content:hover {
+    background-color: rgba(36, 36, 58, 0.7);
+    border: 1px solid rgba(66, 211, 146, 0.4) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* 时间线结束 */
+  .timeline-end {
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* 徽章样式 */
+  .badge {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 0.75rem;
+    font-weight: bold;
+  }
+  
+  .rank-badge {
+    background-color: rgba(255, 215, 0, 0.15);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    color: rgb(180, 150, 0);
+  }
+  
+  :root.dark .rank-badge {
+    background-color: rgba(255, 215, 0, 0.2);
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    color: rgb(255, 215, 0);
+  }
+  
+  .milestone-badge {
+    background-color: rgba(255, 100, 100, 0.15);
+    border: 1px solid rgba(255, 100, 100, 0.3);
+    color: rgb(200, 60, 60);
+  }
+  
+  :root.dark .milestone-badge {
+    background-color: rgba(255, 100, 100, 0.2);
+    border: 1px solid rgba(255, 100, 100, 0.4);
+    color: rgb(255, 100, 100);
+  }
+  
+  /* 终端提示符样式 */
+  .terminal-prompt {
+    margin-top: 16px;
+    white-space: nowrap;
+    color: rgba(30, 30, 30, 0.8);
+  }
+  
+  :root.dark .terminal-prompt {
+    color: rgba(255, 255, 255, 0.85);
+  }
+  
+  .terminal-prompt .text-green-500 {
+    color: rgba(20, 120, 80, 1);
+  }
+  
+  :root.dark .terminal-prompt .text-green-500 {
+    color: rgb(34, 197, 94);
+  }
+  
+  .terminal-prompt .text-blue-500 {
+    color: rgba(30, 100, 180, 1);
+  }
+  
+  :root.dark .terminal-prompt .text-blue-500 {
+    color: rgb(59, 130, 246);
+  }
+  
+  /* 光标闪烁效果 */
+  .typing-cursor {
+    animation: cursor-blink 1s step-end infinite;
+  }
+  
+  @keyframes cursor-blink {
+    from, to { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  
+  /* 赛博朋克标题 */
+  .cyber-heading {
+    position: relative;
+    padding-bottom: 4px;
+  }
+  
+  .cyber-heading::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(66, 211, 146, 0.5), transparent);
+  }
+  
+  :root.dark .cyber-heading::after {
+    background: linear-gradient(90deg, rgba(66, 211, 146, 0.8), transparent);
+  }
+  
+  /* 响应式调整 */
+  @media (max-width: 768px) {
+    .vertical-timeline::before {
+      left: 30px;
+    }
+    
+    .year-label {
+      margin: 0 0 20px 60px;
+      text-align: left;
+    }
+    
+    .timeline-left, .timeline-right {
+      justify-content: flex-start;
+      padding-left: 60px;
+      padding-right: 0;
+      width: 100%;
+      margin-left: 0;
+    }
+    
+    .timeline-left .timeline-connector,
+    .timeline-right .timeline-connector {
+      left: 30px;
+      right: auto;
+      transform: translate(-50%, -50%);
+    }
+    
+    .timeline-left .connector-line,
+    .timeline-right .connector-line {
+      left: 4px;
+      right: auto;
+    }
+  }
+</style>

@@ -3,67 +3,83 @@ export interface Honor {
   name: string;
   date: string;
   rank: string;
-  description: string;
-  image?: string;
-  challenges?: string[];
-  ctftime?: string;
-  link?: string;
+  isMilestone?: boolean;
 }
 
 export const honors: Honor[] = [
   {
     id: "honor1",
-    name: "DEFCON CTF 2025",
-    date: "2025-08-12",
-    rank: "3rd Place",
-    description: "Achieved 3rd place in DEFCON CTF, the world's most prestigious hacking competition, demonstrating the team's comprehensive strength across various security domains.",
-    image: "/images/honors/defcon.jpg",
-    challenges: ["Kernel Exploitation", "IoT Security", "Advanced Web Vulnerabilities"],
-    ctftime: "https://ctftime.org/event/future-defcon-2025",
-    link: "https://www.defcon.org"
+    name: "N0wayBack Team Established",
+    date: "2022-11-11",
+    rank: "Milestone",
+    isMilestone: true
   },
   {
     id: "honor2",
-    name: "TCTF 2024",
-    date: "2024-12-05",
-    rank: "1st Place",
-    description: "Secured 1st place in TCTF 2024, successfully solving all Web and Crypto challenges.",
-    image: "/images/honors/tctf.jpg",
-    challenges: ["AES Breaking", "API Token Forgery", "WebAssembly Exploitation"],
-    ctftime: "https://ctftime.org/event/future-tctf-2024",
-    link: "https://tctf.io"
+    name: "CyberSec Cup 2022 Online Qualifier",
+    date: "2022-11-27",
+    rank: "3rd Place",
   },
   {
     id: "honor3",
-    name: "RealWorld CTF 2024",
-    date: "2024-07-22",
-    rank: "2nd Place",
-    description: "Earned 2nd place in RealWorld CTF 2024, with exceptional performance in PWN and Reverse Engineering challenges.",
-    image: "/images/honors/realworld.jpg",
-    challenges: ["VM Escape", "Firmware Analysis", "Embedded Security"],
-    ctftime: "https://ctftime.org/event/future-realworld-2024",
-    link: "https://realworldctf.com"
+    name: "First CTF Competition",
+    date: "2022-11-27",
+    rank: "Milestone",
+    isMilestone: true
   },
   {
     id: "honor4",
-    name: "0CTF 2024",
-    date: "2024-04-18",
-    rank: "Top 10",
-    description: "Ranked among the top 10 in 0CTF 2024, demonstrating strong capabilities across multiple domains.",
-    image: "/images/honors/0ctf.jpg",
-    challenges: ["Binary Analysis", "Custom Protocol Exploitation", "Mobile Security"],
-    ctftime: "https://ctftime.org/event/future-0ctf-2024",
-    link: "https://ctf.0ops.sjtu.cn/"
+    name: "National CTF 2022",
+    date: "2022-12-04",
+    rank: "3rd Place",
   },
   {
     id: "honor5",
-    name: "HITCON CTF 2023",
-    date: "2023-11-25",
-    rank: "5th Place",
-    description: "Placed 5th in HITCON CTF 2023, with outstanding achievements particularly in Web and Crypto challenges.",
-    image: "/images/honors/hitcon.jpg",
-    challenges: ["Browser Exploitation", "Supply Chain Attack", "Cryptographic Primitives"],
-    ctftime: "https://ctftime.org/event/past-hitcon-2023",
-    link: "https://ctf.hitcon.org/"
+    name: "Regional Security Challenge",
+    date: "2022-12-09",
+    rank: "1st Place",
   },
+  {
+    id: "honor6",
+    name: "CyberSec Cup 2022 Finals",
+    date: "2022-12-14",
+    rank: "Bronze Award",
+  },
+  {
+    id: "honor7",
+    name: "International Hacking Competition",
+    date: "2023-03-15",
+    rank: "Top 10",
+  },
+  {
+    id: "honor8",
+    name: "University CTF Championship",
+    date: "2023-05-20",
+    rank: "2nd Place",
+  },
+  {
+    id: "honor9",
+    name: "100th CTF Challenge Completed",
+    date: "2023-08-01",
+    rank: "Milestone",
+    isMilestone: true
+  },
+  {
+    id: "honor10",
+    name: "Global Security Conference CTF",
+    date: "2023-10-12",
+    rank: "Silver Award",
+  },
+  {
+    id: "honor11",
+    name: "National Cyber Defense Exercise",
+    date: "2024-01-25",
+    rank: "Top Team",
+  },
+  {
+    id: "honor12",
+    name: "Annual Achievements Recognition",
+    date: "2024-02-28",
+    rank: "Most Improved Team",
+  }
 ];

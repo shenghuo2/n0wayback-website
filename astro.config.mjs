@@ -5,6 +5,10 @@ import tailwind from '@astrojs/tailwind';
 // https://astro.build/config
 export default defineConfig({
   integrations: [tailwind()],
-  site: 'https://n0wayback.team',
+  site: 'https://n0wayback.com',
   base: '/',
+  server: {
+    host: '0.0.0.0',
+    port: 4321
+  }
 });

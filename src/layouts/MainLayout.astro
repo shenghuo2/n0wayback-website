@@ -38,12 +38,41 @@ const { title, description = "Official website of N0wayBack Team" } = Astro.prop
       }
     </script>
   </head>
-  <body class="bg-primary-light dark:bg-primary-dark text-light-light dark:text-light-dark min-h-screen flex flex-col">
+  <body class="bg-primary-light dark:bg-primary-dark text-light-light dark:text-light-dark min-h-screen terminal-boot">
     <Navbar />
-    <main class="flex-grow">
+    <main class="fade-in">
       <slot />
     </main>
     <Footer />
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // 获取系统主题偏好
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        // 从 localStorage 中获取用户的主题选择
+        const currentTheme = localStorage.getItem('theme');
+        
+        // 如果用户设置了主题，使用它
+        if (currentTheme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else if (currentTheme === 'light') {
+          document.documentElement.classList.remove('dark');
+        } else {
+          // 否则根据系统首选项设置
+          if (prefersDarkScheme.matches) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        }
+
+        // 添加终端启动效果
+        setTimeout(() => {
+          document.body.classList.add('terminal-booted');
+        }, 500);
+      });
+    </script>
   </body>
 </html>
 
@@ -75,5 +104,35 @@ const { title, description = "Official website of N0wayBack Team" } = Astro.prop
   ::-webkit-scrollbar-thumb {
     background: var(--scrollbar-thumb);
     border-radius: 6px;
+  }
+  
+  /* 终端启动效果 */
+  .terminal-boot::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 1;
+    z-index: 9999;
+    transition: opacity 1s ease;
+    pointer-events: none;
+  }
+
+  .terminal-booted::before {
+    opacity: 0;
+  }
+
+  .fade-in {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 0.5s;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 </style>
