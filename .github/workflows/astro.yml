@@ -25,8 +25,8 @@ jobs:
       - name: Build project
         run: npm run build
 
-    #   - name: Create CNAME file
-    #     run: echo 'www.qlnu-sec.cn' > ./dist/CNAME
+      - name: Create CNAME file
+        run: echo 'n0wayback.shenghuo2.top' > ./dist/CNAME
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
