@@ -1,0 +1,160 @@
+---
+const navItems = [
+  { label: "Intro", href: "/" },
+  { label: "Members", href: "/members" },
+  { label: "Honors", href: "/honors" },
+];
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.svg';
+---
+
+<header class="sticky top-0 z-50 bg-primary-light/90 dark:bg-primary-dark/90 backdrop-blur-sm border-b border-secondary-light/30 dark:border-secondary-dark/30">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="flex justify-between items-center h-16">
+      <div class="flex items-center gap-2">
+        <img src={logo.src} alt="N0wayBack Logo" class="w-8 h-8" />
+        <a href="/" class="flex items-center">
+          <div class="logo-text font-mono text-xl font-bold">
+            N0wayBack<span class="blink">_</span>
+          </div>
+        </a>
+      </div>
+      
+      <nav class="hidden md:flex items-center">
+        <ul class="flex space-x-6">
+          {
+            navItems.map((item, index) => (
+              <li>
+                <a 
+                  href={item.href} 
+                  class="relative font-mono text-light-light dark:text-light-dark hover:text-secondary-light dark:hover:text-secondary-dark transition-colors flex items-center"
+                >
+                  <span class="text-secondary-light dark:text-secondary-dark mr-1">$</span>
+                  {item.label.toLowerCase()}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+        
+        <!-- Theme Toggle Button -->
+        <button 
+          type="button"
+          class="theme-toggle ml-6 font-mono text-sm text-light-light dark:text-light-dark hover:text-secondary-light dark:hover:text-secondary-dark"
+          aria-label="Toggle dark mode"
+        >
+          <span class="dark:hidden">$ set --mode=dark</span>
+          <span class="hidden dark:inline">$ set --mode=light</span>
+        </button>
+      </nav>
+      
+      <!-- Mobile Menu Button -->
+      <button class="md:hidden text-light-light dark:text-light-dark" id="mobile-menu-button">
+        <span class="text-secondary-light dark:text-secondary-dark font-mono">$ menu</span>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Mobile Menu -->
+  <div class="md:hidden hidden bg-primary-light dark:bg-primary-dark border-t border-secondary-light/30 dark:border-secondary-dark/30" id="mobile-menu">
+    <div class="px-4 py-4 space-y-3">
+      {
+        navItems.map((item) => (
+          <a 
+            href={item.href} 
+            class="block font-mono text-light-light dark:text-light-dark"
+          >
+            <span class="text-secondary-light dark:text-secondary-dark">$</span> cd {item.label.toLowerCase()}
+          </a>
+        ))
+      }
+      <button 
+        type="button"
+        class="theme-toggle block w-full text-left font-mono text-light-light dark:text-light-dark"
+      >
+        <span class="text-secondary-light dark:text-secondary-dark dark:hidden">$</span> 
+        <span class="dark:hidden">set --mode=dark</span>
+        <span class="text-secondary-light dark:text-secondary-dark hidden dark:inline">$</span> 
+        <span class="hidden dark:inline">set --mode=light</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Mobile menu toggle
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  if (mobileMenuButton && mobileMenu) {
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  }
+  
+  // Theme toggle functionality
+  const themeToggles = document.querySelectorAll('.theme-toggle');
+  
+  // Check for dark mode preference
+  const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  const hasThemePreference = localStorage.getItem('theme') !== null;
+  
+  // Set initial theme
+  if (hasThemePreference) {
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  } else if (darkModeMediaQuery.matches) {
+    document.documentElement.classList.add('dark');
+    localStorage.setItem('theme', 'dark');
+  }
+  
+  // Theme toggle event listeners
+  themeToggles.forEach(toggle => {
+    toggle.addEventListener('click', () => {
+      if (document.documentElement.classList.contains('dark')) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+  });
+</script>
+
+<style>
+  .logo-text {
+    background: linear-gradient(90deg, 
+      #3BFFFF 0%, 
+      #3BFFFF 35%, 
+      #8CDCCD 42%,
+      #D8B99E 48%,
+      #FF7A54 55%,
+      #FF3700 65%, 
+      #FF3700 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .blink {
+    animation: blink-animation 1s steps(5, start) 6;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes blink-animation {
+    0%, 100% {
+      visibility: visible;
+    }
+    50% {
+      visibility: hidden;
+    }
+    100% {
+      visibility: hidden;
+    }
+  }
+</style>

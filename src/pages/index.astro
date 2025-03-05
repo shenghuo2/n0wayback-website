@@ -1,0 +1,286 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import logo from '../assets/logo.svg';
+import logoOrigin from '../assets/logo-origin.webp';
+---
+
+<MainLayout title="Home">
+  <div class="cyberpunk-grid"></div>
+  
+  <section class="py-8 md:py-16 min-h-[80vh] flex items-center">
+    <div class="w-full max-w-4xl mx-auto px-4">
+      <div class="terminal-container">
+        <div class="terminal-background">
+          <img src={logoOrigin.src} alt="N0wayBack Logo" />
+        </div>
+        
+        <!-- 移动端简化的终端标题 -->
+        <div class="terminal-header font-mono text-xs md:hidden">
+          <div class="text-center py-2">
+            <div>SYSTEM INITIALIZATION</div>
+            <div>[root@n0wayback ~]</div>
+          </div>
+        </div>
+        
+        <!-- 桌面端完整的终端标题 -->
+        <pre class="terminal-header font-mono text-xs hidden md:block overflow-x-auto">
+┌─────────────────────────────────────────────────────────────────────────┐
+│                          SYSTEM INITIALIZATION                          │
+│                           [root@n0wayback ~]                            │
+└─────────────────────────────────────────────────────────────────────────┘
+        </pre>
+        
+        <div class="terminal-body font-mono text-sm p-3 md:p-6">
+          <div class="mb-4 md:mb-6">
+            <div class="text-secondary-light dark:text-secondary-dark terminal-command">$ whoami</div>
+            <div class="mt-2 text-light-light dark:text-light-dark">
+              <!-- 在移动端显示简化的标题 -->
+              <div class="block md:hidden text-center">
+                <span class="text-2xl font-bold text-cyan-500 dark:text-cyan-400">N0way</span><span class="text-2xl font-bold text-red-500 dark:text-red-400">Back</span>
+              </div>
+              <!-- 在桌面端显示ASCII艺术字 -->
+              <div class="hidden md:block ascii-art-container overflow-x-auto">
+                <pre class="ascii-art ascii-art-cyan">
+ _   _ _____                         
+| \ | |  _  |                      
+|  \| | | | |_      ____ _ _   _   
+| . ` | | | \ \ /\ / / _` | | | |  
+| |\  \ \_/ /\ V  V / (_| | |_| |  
+\_ \_/\___/  \_/\_/ \__,_|\__, |  
+                           __/ |  
+                          |___/   
+                </pre>
+                <pre class="ascii-art ascii-art-red">
+  ______            _    
+  | ___ \          | |   
+  | |_/ / __ _  ___| | __
+  | ___ \/ _` |/ __| |/ /
+  | |_/ / (_| | (__|   &lt; 
+  \____/ \__,_|\___|_|\_\\
+                          
+                          
+                </pre>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mb-6 md:mb-8">
+            <div class="text-secondary-light dark:text-secondary-dark terminal-command">$ cat manifesto.txt</div>
+            <div class="mt-2 p-3 md:p-4 border border-secondary-light/20 dark:border-secondary-dark/20 bg-primary-light/30 dark:bg-primary-dark/30">
+              <p class="mb-3 md:mb-4 text-light-light/90 dark:text-light-dark/90 text-sm md:text-base">Focus on CTF Not only CTF</p>
+              
+              <p class="mb-3 md:mb-4 text-light-light/90 dark:text-light-dark/90 text-sm md:text-base">We got nothing to lose but our damn cool dream. And this time we gonna fight against who look down us and this hard reality last once.</p>
+              
+              <p class="text-light-light/90 dark:text-light-dark/90 text-sm md:text-base">So there is no way back.</p>
+            </div>
+          </div>
+          
+          <div class="mb-6 md:mb-8">
+            <div class="text-secondary-light dark:text-secondary-dark terminal-command">$ ls -la ./navigation/</div>
+            <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+              <a href="/members" class="p-2 md:p-3 border border-secondary-light/20 dark:border-secondary-dark/20 hover:border-secondary-light/40 dark:hover:border-secondary-dark/40 transition-colors">
+                <div class="font-bold text-light-light dark:text-light-dark mb-1">members/</div>
+                <div class="text-light-light/70 dark:text-light-dark/70 text-xs md:text-sm">Meet our team of security researchers</div>
+              </a>
+              
+              <a href="/honors" class="p-2 md:p-3 border border-secondary-light/20 dark:border-secondary-dark/20 hover:border-secondary-light/40 dark:hover:border-secondary-dark/40 transition-colors">
+                <div class="font-bold text-light-light dark:text-light-dark mb-1">honors/</div>
+                <div class="text-light-light/70 dark:text-light-dark/70 text-xs md:text-sm">View our achievements and milestones</div>
+              </a>
+            </div>
+          </div>
+          
+          <div class="terminal-prompt">
+            <span class="text-green-500 dark:text-green-400">root@n0wayback</span>:<span class="text-blue-500 dark:text-blue-400">~</span>$ <span class="typing-cursor">_</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</MainLayout>
+
+<style>
+  /* 赛博朋克网格背景 */
+  .cyberpunk-grid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      linear-gradient(to right, rgba(65, 184, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(65, 184, 255, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.2;
+  }
+  
+  /* 终端容器样式 */
+  .terminal-container {
+    background-color: rgba(240, 240, 245, 0.8);
+    border: 1px solid rgba(66, 211, 146, 0.5);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  :root.dark .terminal-container {
+    background-color: rgba(16, 16, 32, 0.6);
+    border: 1px solid rgba(66, 211, 146, 0.3);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* 终端背景图片 */
+  .terminal-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.35;
+    pointer-events: none;
+  }
+  
+  :root.dark .terminal-background {
+    opacity: 0.30;
+  }
+  
+  .terminal-background img {
+    max-width: 85%;
+    max-height: 85%;
+    object-fit: contain;
+  }
+  
+  .terminal-header {
+    background-color: rgba(66, 211, 146, 0.2);
+    color: rgba(30, 30, 30, 0.9);
+    text-align: center;
+    border-bottom: 1px solid rgba(66, 211, 146, 0.5);
+    position: relative;
+    z-index: 1;
+    font-size: 0.6rem;
+  }
+  
+  @media (min-width: 768px) {
+    .terminal-header {
+      font-size: 0.75rem;
+      padding: 4px 0;
+    }
+  }
+  
+  :root.dark .terminal-header {
+    background-color: rgba(26, 26, 46, 0.8);
+    color: rgba(255, 255, 255, 0.8);
+    border-bottom: 1px solid rgba(66, 211, 146, 0.3);
+  }
+  
+  .terminal-body {
+    background-color: rgba(250, 250, 252, 0.80);
+    color: rgba(30, 30, 30, 0.9);
+    min-height: 200px;
+    position: relative;
+    z-index: 1;
+  }
+  
+  :root.dark .terminal-body {
+    background-color: rgba(22, 22, 38, 0.60);
+    color: rgba(255, 255, 255, 0.85);
+  }
+  
+  /* 终端命令样式 */
+  .terminal-command {
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  
+  @media (min-width: 768px) {
+    .terminal-command {
+      font-size: 0.875rem;
+    }
+  }
+  
+  /* ASCII艺术字容器 */
+  .ascii-art-container {
+    display: flex;
+    justify-content: center;
+    white-space: nowrap;
+  }
+  
+  /* ASCII艺术 */
+  .ascii-art {
+    font-family: monospace;
+    white-space: pre;
+    line-height: 1.2;
+    overflow-x: visible;
+    font-size: 0.7rem;
+    display: inline-block;
+  }
+  
+  .ascii-art-cyan {
+    color: rgba(6, 182, 212, 0.9);
+    text-shadow: 0 0 5px rgba(6, 182, 212, 0.5);
+  }
+  
+  .ascii-art-red {
+    color: rgba(239, 68, 68, 0.9);
+    text-shadow: 0 0 5px rgba(239, 68, 68, 0.5);
+  }
+  
+  @media (min-width: 768px) {
+    .ascii-art {
+      font-size: 0.875rem;
+    }
+  }
+  
+  /* 终端提示符样式 */
+  .terminal-prompt {
+    margin-top: 16px;
+    white-space: nowrap;
+    color: rgba(30, 30, 30, 0.8);
+    font-size: 0.75rem;
+  }
+  
+  @media (min-width: 768px) {
+    .terminal-prompt {
+      font-size: 0.875rem;
+    }
+  }
+  
+  :root.dark .terminal-prompt {
+    color: rgba(255, 255, 255, 0.85);
+  }
+  
+  .terminal-prompt .text-green-500 {
+    color: rgba(20, 120, 80, 1);
+  }
+  
+  :root.dark .terminal-prompt .text-green-500 {
+    color: rgb(34, 197, 94);
+  }
+  
+  .terminal-prompt .text-blue-500 {
+    color: rgba(30, 100, 180, 1);
+  }
+  
+  :root.dark .terminal-prompt .text-blue-500 {
+    color: rgb(59, 130, 246);
+  }
+  
+  /* 光标闪烁效果 */
+  .typing-cursor {
+    animation: cursor-blink 1s step-end infinite;
+  }
+  
+  @keyframes cursor-blink {
+    from, to { opacity: 1; }
+    50% { opacity: 0; }
+  }
+</style>

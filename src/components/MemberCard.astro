@@ -1,0 +1,163 @@
+---
+interface Props {
+  name: string;
+  avatar: string; 
+  link?: string;
+  github?: string;
+  bio?: string;
+  skills?: string[];
+  isLeader?: boolean;
+  category?: 'leader' | 'active' | 'pioneers'; 
+}
+
+const { name, avatar, link, github, bio, skills = [], isLeader = false, category = 'active' } = Astro.props;
+
+// 从GitHub链接中提取用户名（如果没有直接提供github属性）
+let githubUsername = github || '';
+if (!githubUsername && link && link.includes('github.com/')) {
+  githubUsername = link.split('github.com/')[1].split('/')[0];
+}
+
+// 判断是否有链接
+const hasLinks = githubUsername || (link && !link.includes('github.com/'));
+
+// 如果有GitHub用户名，生成GitHub链接
+const githubLink = github ? `https://github.com/${github}` : null;
+
+// 根据category设置不同的样式
+let categoryClass = '';
+if (category === 'leader') {
+  categoryClass = 'border-secondary-light/30 dark:border-secondary-dark/30';
+} else if (category === 'pioneers') {
+  categoryClass = 'border-yellow-500/30 dark:border-yellow-400/30';
+} else {
+  categoryClass = 'border-secondary-light/20 dark:border-secondary-dark/20';
+}
+
+// 根据技能名称生成唯一的颜色 - 使用更柔和的颜色方案
+function generateColorFromSkill(skill: string) {
+  // 简单的字符串哈希函数
+  let hash = 0;
+  for (let i = 0; i < skill.length; i++) {
+    hash = skill.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  
+  // 将哈希值转换为HSL颜色 - 使用更柔和的颜色
+  const h = Math.abs(hash) % 360; // 色相 0-359
+  const s = 20 + (Math.abs(hash) % 15); // 饱和度降低到 20-34%
+  const l = 60 + (Math.abs(hash) % 15); // 亮度提高到 60-74%
+  
+  return { 
+    bgLight: `hsla(${h}, ${s}%, ${l}%, 0.2)`, 
+    bgDark: `hsla(${h}, ${s+5}%, ${l-10}%, 0.25)`,
+    borderLight: `hsla(${h}, ${s+10}%, ${l-15}%, 0.3)`,
+    borderDark: `hsla(${h}, ${s+15}%, ${l-5}%, 0.35)`
+  };
+}
+---
+
+<div class={`border ${categoryClass} hover:border-secondary-light dark:hover:border-secondary-dark transition-all duration-300 p-4 flex flex-col h-full card-container`}>
+  <div class="flex items-center gap-4 mb-4">
+    <div class="w-16 h-16 rounded-sm overflow-hidden border border-secondary-light/40 dark:border-secondary-dark/40">
+      <img src={avatar} alt={`${name}'s avatar`} class="w-full h-full object-cover transition-all duration-300" />
+    </div>
+    
+    <div>
+      <h3 class="font-mono text-light-light dark:text-light-dark font-bold">{name}</h3>
+      <div class="flex flex-col gap-1 mt-1">
+        {githubUsername && (
+          <a href={`https://github.com/${githubUsername}`} target="_blank" rel="noopener noreferrer" class="text-xs text-secondary-light dark:text-secondary-dark hover:underline font-mono">
+            <span class="mr-1">~</span>github: @{githubUsername}
+          </a>
+        )}
+        
+        {link && !link.includes('github.com/') && (
+          <a href={link} target="_blank" rel="noopener noreferrer" class="text-xs text-secondary-light dark:text-secondary-dark hover:underline font-mono">
+            <span class="mr-1">~</span>website
+          </a>
+        )}
+      </div>
+    </div>
+  </div>
+  
+  {bio ? (
+    <div class="mb-4">
+      <p class="text-light-light/80 dark:text-light-dark/80 text-sm font-mono">{bio}</p>
+    </div>
+  ) : (
+    <div class={`${hasLinks ? 'mb-4' : 'mb-8'}`}>
+      <p class="text-light-light/50 dark:text-light-dark/50 text-xs font-mono">
+        <span class="text-secondary-light dark:text-secondary-dark">$</span> cat /team/{name}/bio
+      </p>
+      <p class="text-light-light/50 dark:text-light-dark/50 text-xs font-mono italic mt-1">bio: No such file or directory</p>
+    </div>
+  )}
+  
+  <div class="mt-auto">
+    {skills && skills.length > 0 && (
+      <div class="flex flex-wrap gap-2 pt-2 border-t border-secondary-light/10 dark:border-secondary-dark/10">
+        {skills.map((skill) => {
+          const colors = generateColorFromSkill(skill);
+          return (
+            <span 
+              class="inline-block px-2 py-0.5 text-xs font-mono border text-light-light/90 dark:text-light-dark/90 skill-tag" 
+              style={`--bg-light: ${colors.bgLight}; --bg-dark: ${colors.bgDark}; --border-light: ${colors.borderLight}; --border-dark: ${colors.borderDark};`}
+            >
+              {skill}
+            </span>
+          );
+        })}
+      </div>
+    )}
+  </div>
+</div>
+
+<style>
+  .skill-tag {
+    background-color: var(--bg-light);
+    border-color: var(--border-light);
+    transition: transform 0.2s ease;
+  }
+  
+  .skill-tag:hover {
+    transform: translateY(-1px);
+  }
+  
+  /* 暗色模式下的技能标签 */
+  @media (prefers-color-scheme: dark) {
+    .skill-tag {
+      background-color: var(--bg-dark);
+      border-color: var(--border-dark);
+    }
+  }
+  
+  /* 卡片悬停效果 - 添加$指向效果 */
+  .card-container {
+    position: relative;
+  }
+  
+  .card-container::before {
+    content: '$';
+    position: absolute;
+    left: -1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--secondary-light, #42d392);
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 1.2rem;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  .card-container:hover::before {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0.5rem);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .card-container::before {
+      color: var(--secondary-dark, #42d392);
+    }
+  }
+</style>
